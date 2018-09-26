@@ -20,7 +20,7 @@ import com.thedemosite.pages.LoginPage;
 public class VerifyTheDemoSiteLogin {
 
 	@Test
-	public void verifyValidLogin() throws InterruptedException {
+	public void verifyValidLogin() {
 		
 		//configure and engage WebDriver
 		System.setProperty("webdriver.gecko.driver","//Users//hanschehaiber//geckodriver");
@@ -42,10 +42,16 @@ public class VerifyTheDemoSiteLogin {
 		loginPage.clickTestLoginButton();
 		
 		//Check to make sure the login was successful
-		assertTrue(loginPage.checkLoginAttempt());
+		try {
+			assertTrue(loginPage.checkLoginAttempt());
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			//close the browser at conclusion of test
+			driver.quit();
+		}
 		
-		//close we browser at conclusion of test
-		driver.quit();
+		
 	}
 	
 	
